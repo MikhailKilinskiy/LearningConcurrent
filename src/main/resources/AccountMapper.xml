@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+        'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+
+<mapper namespace='db.mappers.AccountMapper'>
+
+
+    <select id='getAccountById' parameterType='int' resultType='db.model.Account'>
+        SELECT
+        account_id,
+        client_id,
+        balance
+        FROM test.Account
+        WHERE account_id = #{account_id}
+    </select>
+
+    <select id='getAllAccounts' resultType='db.model.Account'>
+        SELECT * FROM test.Account
+    </select>
+
+    <insert id='createAccount' parameterType='db.model.Account' keyColumn = 'account_id' useGeneratedKeys='true' keyProperty='account_id'>
+        INSERT INTO test.Account(account_id, client_id, balance)
+        VALUES(#{account_id}, #{client_id}, #{balance})
+    </insert>
+
+    <update id='updateAccount' parameterType='db.model.Account'>
+        UPDATE test.Account
+        SET
+        client_id = #{client_id},
+        balance = #{balance}
+        WHERE account_id = #{account_id}
+    </update>
+
+    <delete id='deleteAccountById' parameterType='int'>
+        DELETE FROM test.Account WHERE account_id = #{account_id}
+    </delete>
+
+</mapper>
